@@ -1,0 +1,19 @@
+que es el testing
+fases del desarrollo SW
+
+
+npm init
+npm install jest
+npx jest --init
+jest: test y assertions toBe
+jest: describe
+ejemplo 1
+TDD
+ejemplo 2 como ejercicio: sacar todos los casos posibles primero
+ejemplo 3 como ejercicio:
+coverage en diversos formatos
+drama de las referencias .toBe()-->.toEqual()
+describes
+beforeEach, afterEach, beforeAll, afterAll
+
+Clase contador

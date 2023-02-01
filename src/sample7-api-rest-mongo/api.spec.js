@@ -1,6 +1,8 @@
+process.env.DOTENV_PATH = '/.env.test';
 const request = require('supertest');
 const mongoose = require("mongoose");
-const { server, db } = require('./api');
+const api = require('./api');
+const server = api.server;
 
 describe('test API', () => {
     test('test empty cats', async() => {
@@ -25,7 +27,8 @@ afterEach(async() => {
 
 afterAll(async() => {
     server.close();
-    await mongoose.connection.close()
+    await mongoose.connection.close();
+    await api.mongo.stop();
 })
 
 

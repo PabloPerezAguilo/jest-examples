@@ -1,16 +1,20 @@
+require('dotenv').config({ path: __dirname + (process.env.DOTENV_PATH || '/.env') })
 const express = require('express');
 const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const Cat = require('./model');
 
-const port = 80;
+const port = process.env.PORT;
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
-    .then((db) => {
-        console.log('Mongoose connected');
-        exports.db = db;
-    })
-    .catch(console.log);
+(async() => {
+    if (!process.env.BBDD_CONNECTSTRING) {
+        exports.mongo = await MongoMemoryServer.create();
+    }
+    mongoose.set("strictQuery", true);
+    exports.db = await mongoose.connect(process.env.BBDD_CONNECTSTRING || exports.mongo.getUri())
+    console.log('Mongoose connected');
+})()
 
 app.get("/cat", async(req, res) => {
     const cats = await Cat.find({});
